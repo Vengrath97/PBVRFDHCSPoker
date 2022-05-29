@@ -8,17 +8,13 @@ namespace PokerProject
 {
     class Card
     {
-        public  Category.Figure Figure { get => figure; set => figure = value; }
-        private Category.Figure figure;
-        public  Category.Suit Suit { get => suit; set => suit = value; }
-        private Category.Suit suit;
-
+        public  Category.Figure Figure { get; set; }
+        public  Category.Suit Suit { get; set; }
         public Card(int cardID)
         {
-            int figureCount = (Enum.GetNames(typeof(Category.Figure)).Length);
-            int validID = cardID % (figureCount*4);
-            Figure = (Category.Figure)(validID % figureCount);
-            Suit = (Category.Suit)(validID / figureCount);
+            int validID = cardID % (ProjectVariables.FigureCount * ProjectVariables.SuitCount);
+            Figure = (Category.Figure)(validID % ProjectVariables.FigureCount);
+            Suit = (Category.Suit)(validID / ProjectVariables.FigureCount);
         }
     }
 }

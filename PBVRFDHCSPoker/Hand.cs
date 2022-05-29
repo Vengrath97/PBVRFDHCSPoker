@@ -10,180 +10,45 @@ namespace PokerProject
     {
         public  Card[] Cards { get => cards; set => cards = value; }
         private Card[] cards;
-
+        private Category.HandType HandType;
         public Hand()
         {
-            Random rnd = new Random();
-            int[] randomID = new int[5];
-            randomID[0] = rnd.Next(24);
-            int temp = rnd.Next(24);
-            int i = 1;
-            while (i < 5)
+            Card[] CardsInHand = new Card[ProjectVariables.HandSize];
+            int[] IDList = GenerateListOfUniqueIDs();
+            for (int i = 0; i < ProjectVariables.HandSize; i++)
             {
-                if (!randomID.Contains(temp))
+                CardsInHand[i] = new Card(IDList[i]);
+            }
+            Cards = CardsInHand;
+            HandType = DetermineHandType();
+        }
+        private int[] GenerateListOfUniqueIDs()
+        {
+            Random rnd = new Random();
+            int[] returnValue = new int[ProjectVariables.HandSize];
+            for (int i = 0; i< ProjectVariables.HandSize; i++)
+            {
+                int temp = rnd.Next(ProjectVariables.FigureCount*ProjectVariables.SuitCount);
+                if (returnValue.Contains(temp))
                 {
-                    randomID[i] = temp;
-                    i += 1;
+                    i -= 1;
                 }
                 else
                 {
-                    temp = rnd.Next();
+                    returnValue[i] = temp;
                 }
             }
-            Card[] returnValue = new Card[5];
-            for (int j=0; j<5; j++)
-            {
-                returnValue[j] = new Card(randomID[j]);
-            }
-            Cards = returnValue;
+            return returnValue;
         }
         public void ShowHand()
         {
-
-            int i = 0;
-            while (i < 5)
+            foreach (Card card in Cards)
             {
                 Console.WriteLine($"-------------------------");
-                Console.WriteLine($"- {Cards[i].Figure} of {Cards[i].Suit} \t-");
-                i += 1;
+                Console.WriteLine($"- {card.Figure} of {card.Suit} \t-");
             }
             Console.WriteLine($"-------------------------");
             Console.WriteLine($" ");
-        }
-        private bool containsFigure(Category.Figure figure)
-        {
-            for (int i = 0; i<5; i++)
-            {
-                if (this.Cards[i].Figure == figure)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        private bool isFlush()
-        {
-            if (this.Cards[0].Suit == this.Cards[1].Suit && this.Cards[0].Suit == this.Cards[2].Suit && this.Cards[0].Suit == this.Cards[3].Suit && this.Cards[0].Suit == this.Cards[4].Suit)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isRoyal()
-        {
-            if(this.containsFigure((Category.Figure)0) && this.containsFigure((Category.Figure)1) && this.containsFigure((Category.Figure)2) && this.containsFigure((Category.Figure)3) && this.containsFigure((Category.Figure)4))
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isStraight()
-        {
-            for (int i = 0; i<10; i++)
-            {
-                if ((this.containsFigure((Category.Figure)i) && this.containsFigure((Category.Figure)i+1) && this.containsFigure((Category.Figure)i + 2) && this.containsFigure((Category.Figure)i + 3) && this.containsFigure((Category.Figure)i + 4)))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        private bool isFourOfAKind()
-        {
-            int same = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j<5;j++)
-                {
-                    if (this.Cards[i].Figure == this.Cards[j].Figure)
-                    {
-                        same += 1;
-                    }
-                }
-            }
-            if (same > 15)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isFullHouse()
-        {
-            int same = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (this.Cards[i].Figure == this.Cards[j].Figure)
-                    {
-                        same += 1;
-                    }
-                }
-            }
-            if (same == 13)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isThreeOfAKind()
-        {
-            int same = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (this.Cards[i].Figure == this.Cards[j].Figure)
-                    {
-                        same += 1;
-                    }
-                }
-            }
-            if (same == 11)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isTwoPairs()
-        {
-            int same = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (this.Cards[i].Figure == this.Cards[j].Figure)
-                    {
-                        same += 1;
-                    }
-                }
-            }
-            if (same > 8)
-            {
-                return true;
-            }
-            return false;
-        }
-        private bool isPair()
-        {
-            int same = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (this.Cards[i].Figure == this.Cards[j].Figure)
-                    {
-                        same += 1;
-                    }
-                }
-            }
-            if (same > 5)
-            {
-                return true;
-            }
-            return false;
         }
         public int DetermineHand()
         {
@@ -223,10 +88,127 @@ namespace PokerProject
             {
                 return 9;
             }
-            else
+            return 10;
+        }
+        public Category.HandType DetermineHandType()
+        {
+            if (this.isFlush() && this.isRoyal())
             {
-                return 10;
+                return (Category.HandType)0;
             }
+            if (this.isFlush() && this.isStraight())
+            {
+                return (Category.HandType)1;
+            }
+            if (this.isFourOfAKind())
+            {
+                return (Category.HandType)2;
+            }
+            if (this.isFullHouse())
+            {
+                return (Category.HandType)3;
+            }
+            if (this.isFlush())
+            {
+                return (Category.HandType)4;
+            }
+            if (this.isStraight())
+            {
+                return (Category.HandType)5;
+            }
+            if (this.isThreeOfAKind())
+            {
+                return (Category.HandType)6;
+            }
+            if (this.isTwoPairs())
+            {
+                return (Category.HandType)7;
+            }
+            if (this.isPair())
+            {
+                return (Category.HandType)8;
+            }
+            return (Category.HandType)9;
+        }
+
+        // Helpful tools in determining a HandType conditions
+        private int repetitions()
+        {
+            int repetitions = 0;
+            for (int i = 0; i < ProjectVariables.HandSize; i++)
+            {
+                for (int j = 0; j < ProjectVariables.HandSize; j++)
+                {
+                    if (this.Cards[i].Figure == this.Cards[j].Figure)
+                    {
+                        repetitions += 1;
+                    }
+                }
+            }
+            return repetitions;
+        }
+        private bool containsFigure(Category.Figure figure)
+        {
+            for (int i = 0; i < ProjectVariables.HandSize; i++)
+            {
+                if (this.Cards[i].Figure == figure)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Determine if a hand meets the necessary minimal condition of a given HandType
+        private bool isFlush()
+        {
+            return (this.Cards[0].Suit == this.Cards[1].Suit &&
+                    this.Cards[0].Suit == this.Cards[2].Suit &&
+                    this.Cards[0].Suit == this.Cards[3].Suit &&
+                    this.Cards[0].Suit == this.Cards[4].Suit);
+        }
+        private bool isRoyal()
+        {
+            return (this.containsFigure((Category.Figure)0) && 
+                    this.containsFigure((Category.Figure)1) && 
+                    this.containsFigure((Category.Figure)2) && 
+                    this.containsFigure((Category.Figure)3) && 
+                    this.containsFigure((Category.Figure)4));
+        }
+        private bool isStraight()
+        {
+            for (int i = 0; i<10; i++)
+            {
+                if (this.containsFigure((Category.Figure)i) && 
+                    this.containsFigure((Category.Figure)i + 1) && 
+                    this.containsFigure((Category.Figure)i + 2) && 
+                    this.containsFigure((Category.Figure)i + 3) && 
+                    this.containsFigure((Category.Figure)i + 4))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool isFourOfAKind()
+        {
+            return (repetitions() > 16);
+        }
+        private bool isFullHouse()
+        {
+            return repetitions() == 13;
+        }
+        private bool isThreeOfAKind()
+        {
+            return repetitions() == 11;
+        }
+        private bool isTwoPairs()
+        {
+            return repetitions() == 9;
+        }
+        private bool isPair()
+        {
+            return repetitions() == 7;
         }
     }
 }

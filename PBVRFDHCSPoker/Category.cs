@@ -10,6 +10,13 @@
             Jack,
             Ten,
             Nine,
+            Eight,
+            Seven,
+            Six,
+            Five,
+            Four,
+            Three,
+            Two,
         }
         public enum Suit
         {
@@ -18,5 +25,19 @@
             Diamonds,
             Hearts,
         }
+        public enum HandType
+        {
+            RoyalFlush,
+            StraightFlush,
+            FourOfAKind,
+            FullHouse,
+            Flush,
+            Straight,
+            ThreeOfAKind,
+            TwoPairs,
+            Pair,
+            HighCard,
+        }
+
     }
 }
