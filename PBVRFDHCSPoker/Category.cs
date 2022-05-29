@@ -38,6 +38,5 @@
             Pair,
             HighCard,
         }
-
     }
 }

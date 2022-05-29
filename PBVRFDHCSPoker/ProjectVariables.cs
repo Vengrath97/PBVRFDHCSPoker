@@ -21,7 +21,7 @@ namespace PokerProject
         // === Configurable Variables ===
         public static bool ConfigMode = false;
         public static bool ShowAllHands = false;
-        public static int SampleSize = 100000;
+        public static int SampleSize = 100000000;
         public static int FigureCount = 6;
         public static int SuitCount = 4;
     }
