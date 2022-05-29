@@ -21,7 +21,7 @@ namespace PokerProject
         }
         private static void ShowHandIfNecessary()
         {
-            if (ProjectVariables.ShowHand)
+            if (ProjectVariables.ShowAllHands)
             {
                 ProjectVariables.CurrentObject.ShowHand();
             }
@@ -32,7 +32,7 @@ namespace PokerProject
         }
         private static void AssignResult()
         {
-            ProjectVariables.Results[ProjectVariables.CurrentObject.DetermineHand() - 1] += 1;
+            ProjectVariables.Results[(int)ProjectVariables.CurrentObject.DetermineHandType()] += 1;
         }
         private static void DisplayResults()
         {

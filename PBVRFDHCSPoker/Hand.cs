@@ -50,46 +50,6 @@ namespace PokerProject
             Console.WriteLine($"-------------------------");
             Console.WriteLine($" ");
         }
-        public int DetermineHand()
-        {
-            if (this.isFlush() && this.isRoyal())
-            {
-                return 1;
-            }
-            else if (this.isFlush() && this.isStraight())
-            {
-                return 2;
-            }
-            else if (this.isFourOfAKind())
-            {
-                return 3;
-            }
-            else if (this.isFullHouse())
-            {
-                return 4;
-            }
-            else if (this.isFlush())
-            {
-                return 5;
-            }
-            else if (this.isStraight())
-            {
-                return 6;
-            }
-            else if (this.isThreeOfAKind())
-            {
-                return 7;
-            }
-            else if (this.isTwoPairs())
-            {
-                return 8;
-            }
-            else if (this.isPair())
-            {
-                return 9;
-            }
-            return 10;
-        }
         public Category.HandType DetermineHandType()
         {
             if (this.isFlush() && this.isRoyal())

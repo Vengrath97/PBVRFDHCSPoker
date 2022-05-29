@@ -24,7 +24,7 @@ namespace PokerProject
             Console.WriteLine("Wpisz 1 jeśli chcesz każdorazowo widzieć wylosowaną rękę:");
             if (int.Parse(Console.ReadLine()) == 1)
             {
-                ProjectVariables.ShowHand = true;
+                ProjectVariables.ShowAllHands = true;
             }
         }
     }
