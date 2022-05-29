@@ -15,8 +15,8 @@ namespace PokerProject
         {
             Random rnd = new Random();
             int[] randomID = new int[5];
-            randomID[0] = rnd.Next();
-            int temp = rnd.Next();
+            randomID[0] = rnd.Next(24);
+            int temp = rnd.Next(24);
             int i = 1;
             while (i < 5)
             {

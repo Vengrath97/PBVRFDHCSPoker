@@ -7,8 +7,8 @@ namespace PokerProject
         static bool ConfigMode = false;
         public static int[] Results = new int[10];
         static Hand CurrentObject;
-        static int SampleSize = 100;
-        static bool ShowHand = false;
+        static int SampleSize = 1;
+        static bool ShowHand = true;
         static void ShowResults()
         {
             Console.WriteLine($"{Results[0]} - of Royal Flushes");
@@ -39,16 +39,22 @@ namespace PokerProject
             {
                 Config();
             }
-            for (int i=0; i< SampleSize; i++)
+            while(true)
             {
-                CurrentObject = new Hand();
-                if (ShowHand)
+                for (int i = 0; i < SampleSize; i++)
                 {
-                    CurrentObject.ShowHand();
+                    CurrentObject = new Hand();
+                    if (ShowHand)
+                    {
+                        CurrentObject.ShowHand();
+                    }
+                    Results[CurrentObject.DetermineHand() - 1] += 1;
                 }
-                Results[CurrentObject.DetermineHand() - 1] += 1;
+                ShowResults();
+                Console.ReadLine();
+                Console.Clear();
+                Results = new int[10];
             }
-            ShowResults();
         }
     }
 }
