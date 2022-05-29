@@ -13,6 +13,8 @@ namespace PokerProject
             Console.WriteLine("Witam w konfiguracji. Wprowadź wymagane dane konfiguracyjne:");
             SettingSampleSize();
             SettingDisplayEveryHand();
+            SettingSuitCount();
+            SettingFigureCount();
         }
         private static void SettingSampleSize()
         {
@@ -26,6 +28,16 @@ namespace PokerProject
             {
                 ProjectVariables.ShowAllHands = true;
             }
+        }
+        private static void SettingSuitCount()
+        {
+            Console.WriteLine("Ilość danych (zestawów kart) do przetestowania. Nieprzewidziane konsekwencje ustalenia n>4, lub n<1");
+            ProjectVariables.SuitCount = int.Parse(Console.ReadLine());
+        }
+        private static void SettingFigureCount()
+        {
+            Console.WriteLine("Ilość danych (zestawów kart) do przetestowania. Nieprzewidziane konsekwencje ustalenia n>13, lub n<1");
+            ProjectVariables.FigureCount = int.Parse(Console.ReadLine());
         }
     }
 }

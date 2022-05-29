@@ -23,7 +23,7 @@ namespace PokerProject
         {
             if (ProjectVariables.ShowAllHands)
             {
-                ProjectVariables.CurrentObject.ShowHand();
+                ProjectVariables.CurrentObject.DisplayHand();
             }
         }
         private static void GenerateNewHand()
