@@ -7,20 +7,20 @@ namespace PokerProject
         static bool ConfigMode = false;
         public static int[] Results = new int[10];
         static Hand CurrentObject;
-        static int SampleSize = 1;
-        static bool ShowHand = true;
+        static int SampleSize = 100000;
+        static bool ShowHand = false;
         static void ShowResults()
         {
-            Console.WriteLine($"{Results[0]} - of Royal Flushes");
-            Console.WriteLine($"{Results[1]} - of Straight Flushes");
-            Console.WriteLine($"{Results[2]} - of Four of a Kind's");
-            Console.WriteLine($"{Results[3]} - of Full Houses");
-            Console.WriteLine($"{Results[4]} - of Flushes");
-            Console.WriteLine($"{Results[5]} - of Straights");
-            Console.WriteLine($"{Results[6]} - of Three of a Kind's");
-            Console.WriteLine($"{Results[7]} - of Two Pairs");
-            Console.WriteLine($"{Results[8]} - of Pairs");
-            Console.WriteLine($"{Results[9]} - of High Cards");
+            Console.WriteLine($"{Results[0]} \t- of Royal Flushes");
+            Console.WriteLine($"{Results[1]} \t- of Straight Flushes");
+            Console.WriteLine($"{Results[2]} \t- of Four of a Kind's");
+            Console.WriteLine($"{Results[3]} \t- of Full Houses");
+            Console.WriteLine($"{Results[4]} \t- of Flushes");
+            Console.WriteLine($"{Results[5]} \t- of Straights");
+            Console.WriteLine($"{Results[6]} \t- of Three of a Kind's");
+            Console.WriteLine($"{Results[7]} \t- of Two Pairs");
+            Console.WriteLine($"{Results[8]} \t- of Pairs");
+            Console.WriteLine($"{Results[9]} \t- of High Cards");
         }
         static void Config()
         {
